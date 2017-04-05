@@ -1,0 +1,174 @@
+#include <stdio.h>
+int main()
+{
+    int i, j;
+    double GPA[10] = {}, gpa, in[10][12] = {};
+
+    // Part A
+    FILE*pRead;
+    pRead= fopen("data (2).xls", "r"); //read from file in read mode
+    printf("----------------------------------------------------\n");
+    printf("Results For Ten Students:\n");
+    for(i=0; i<10; i++)
+    {
+        for(j=0; j<12; j++)
+        {
+            fscanf(pRead,"%lf",&in[i][j]);
+        }
+    }
+    printf("----------------------------------------------------\n");
+    fclose(pRead);
+
+    for(i=0; i<10; i++)   //reads grades and assigns gpa value
+    {
+        printf("Student [%d] = ",i+1);
+        for(j=0; j<12; j++)
+        {
+            if (in[i][j] >=80)
+            {
+                gpa += 4.00*5;
+                printf("A  ");
+            }
+            else if (in[i][j] >=70 && in[i][j]<80)
+            {
+                gpa += 3.50*5;
+                printf("B+ ");
+            }
+            else if (in[i][j] >=60 && in[i][j] <70)
+            {
+                gpa += 3.00*5;
+                printf("B  ");
+            }
+            else if (in[i][j] >=55 && in[i][j] <60)
+            {
+                gpa += 2.75*5;
+                printf("B- ");
+            }
+            else if (in[i][j] >=50 && in[i][j] <55)
+            {
+                gpa += 2.50*5;
+                printf("C+ ");
+            }
+            else if (in[i][j] >=40 && in[i][j] <50)
+            {
+                gpa += 2.00*5;
+                printf("C  ");
+            }
+            else if (in[i][j] >=35 && in[i][j] <40)
+            {
+                gpa += 1.50*5;
+                printf("D  ");
+            }
+            else if (in[i][j] <35)
+            {
+                gpa+= 0.00;
+                printf("F  ");
+            }
+        }
+        printf("\n");
+        GPA[i]=(gpa/60);
+        gpa=0;
+    }
+
+
+    printf("\n----------------------------------------------------\n");
+    for(i=0; i<10; i++)
+    {
+        printf("GPA student %d = %.2lf\n", i+1, GPA[i]);
+
+        if(GPA[i] <2.00)
+        {
+            printf("student %d failed\n\n", i+1);
+        }
+        else if(GPA[i] >=2.00 && GPA[i]<2.50)
+        {
+            printf("student %d Passed\n\n", i+1);
+        }
+        else if(GPA[i] >=2.50 && GPA[i]<3.00 )
+        {
+            printf("student %d earned a, Second class Honours, Grade 2\n\n", i+1);
+        }
+        else if(GPA[i] >=3.00 && GPA[i]<3.25 )
+        {
+            printf("student %d earned a, Second class Honours, Grade 1\n\n", i+1);
+        }
+        else if(GPA[i] >=3.25 && GPA[i]<=4.00 )
+        {
+            printf("student %d earned a, First class Honours \n\n", i+1);
+        }
+
+    }
+    printf("----------------------------------------------------\n");
+    FILE*outcome= fopen("outcome.txt", "w"); // write results into file
+
+    for(i=0; i<10; i++)
+    {
+        fprintf(outcome,"Student [%d] = ",i+1);
+        for(j=0; j<12; j++)
+        {
+            if (in[i][j] >=80)
+            {
+                fprintf(outcome,"A  ");
+            }
+            else if (in[i][j] >=70 && in[i][j]<80)
+            {
+                fprintf(outcome,"B+ ");
+            }
+            else if (in[i][j] >=60 && in[i][j] <70)
+            {
+                fprintf(outcome,"B  ");
+            }
+            else if (in[i][j] >=55 && in[i][j] <60)
+            {
+                fprintf(outcome,"B- ");
+            }
+            else if (in[i][j] >=50 && in[i][j] <55)
+            {
+                fprintf(outcome,"C+ ");
+            }
+            else if (in[i][j] >=40 && in[i][j] <50)
+            {
+                fprintf(outcome,"C  ");
+            }
+            else if (in[i][j] >=35 && in[i][j] <40)
+            {
+                fprintf(outcome,"D  ");
+            }
+            else if (in[i][j] <35)
+            {
+                fprintf(outcome,"F  ");
+            }
+        }
+        fprintf(outcome,"\n");
+    }
+
+    fprintf(outcome,"\n\n");
+
+    for(i=0; i<10; i++)
+    {
+        fprintf(outcome,"GPA student %d = %.2lf\n", i+1, GPA[i]);
+
+        if(GPA[i] <2.00)
+        {
+            fprintf(outcome,"student %d failed\n\n", i+1);
+        }
+        else if(GPA[i] >=2.00 && GPA[i]<2.50)
+        {
+            fprintf(outcome,"student %d Passed\n\n", i+1);
+        }
+        else if(GPA[i] >=2.50 && GPA[i]<3.00 )
+        {
+            fprintf(outcome,"student %d earned a, Second class Honours, Grade 2\n\n", i+1);
+        }
+        else if(GPA[i] >=3.00 && GPA[i]<3.25 )
+        {
+            fprintf(outcome,"student %d earned a, Second class Honours, Grade 1\n\n", i+1);
+        }
+        else if(GPA[i] >=3.25 && GPA[i]<=4.00 )
+        {
+            fprintf(outcome,"student %d earned a, First class Honours \n\n", i+1);
+        }
+    }
+    return 0;
+}
+
